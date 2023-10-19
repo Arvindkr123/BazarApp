@@ -4,6 +4,7 @@ import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Cart from "./pages/Cart";
+import { productsData } from "./api/Api";
 
 const Layout = () => {
   return (
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader:productsData
       },
       {
         path: "/cart",

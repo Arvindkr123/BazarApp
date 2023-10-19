@@ -3,10 +3,12 @@ import { CartLogo, profileLogo } from "../assets";
 
 const Header = () => {
   return (
-    <div className="font-titleFont w-full h-20 bg-white border-b-[1px] border-b-gray-800">
+    <div className="sticky top-0 z-50 font-titleFont w-full h-20 bg-white border-b-[1px] border-b-gray-800">
       {/* Logo goes here... */}
       <div className="max-w-screen-xl h-full mx-auto flex items-center justify-between">
-        <div className="bazar text-3xl font-extrabold w-28 cursor-pointer">bazaar</div>
+        <div className="bazar text-3xl font-extrabold w-28 cursor-pointer">
+          bazaar
+        </div>
         {/* other items goes here... */}
         <div className="flex items-center gap-8">
           <ul className="flex items-center gap-8">
@@ -32,7 +34,11 @@ const Header = () => {
               0
             </span>
           </div>
-          <img src={profileLogo} alt="profile logo"  className="w-8 h-8 rounded-full"/>
+          <img
+            src={profileLogo}
+            alt="profile logo"
+            className="w-8 h-8 rounded-full"
+          />
         </div>
       </div>
     </div>

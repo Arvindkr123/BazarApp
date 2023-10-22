@@ -28,7 +28,9 @@ const Cart = () => {
               Your Cart is Empty.Please go back to Shopping and add products to
               Cart.
             </p>
-            <Link to="/" className="text-gray-600 mt-2">⬅Shopping</Link>
+            <Link to="/" className="text-gray-600 mt-2">
+              ⬅Shopping
+            </Link>
           </div>
         ) : (
           <>

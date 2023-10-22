@@ -42,11 +42,13 @@ const Header = () => {
               </span>
             </div>
           </Link>
-          <img
-            src={profileLogo}
-            alt="profile logo"
-            className="w-8 h-8 rounded-full"
-          />
+          <Link to="/login">
+            <img
+              src={profileLogo}
+              alt="profile logo"
+              className="w-8 h-8 rounded-full"
+            />
+          </Link>
         </div>
       </div>
     </div>

@@ -7,16 +7,32 @@ import {
   signOut,
 } from "firebase/auth";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from "../redux/bazaarSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   async function handleGoogleLogin(e) {
     //console.log(auth);
     try {
       const { user } = await signInWithPopup(auth, provider);
-      console.log("response from user ", user);
+      //console.log("response from user ", user);
       toast.success("user has been signed in");
+      dispatch(
+        addUser({
+          _id: user.uid,
+          name: user.displayName,
+          email: user.email,
+          image: user.photoURL,
+        })
+      );
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
     } catch (error) {
       console.log(error);
     }
@@ -25,7 +41,9 @@ const Login = () => {
   const handleSignOut = () => {
     try {
       signOut(auth);
+      dispatch(removeUser());
       toast.success("Logged out successfully");
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }

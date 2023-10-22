@@ -5,4 +5,5 @@ export const config = {
   storageBucket: String(import.meta.env.VITE_storageBucket),
   messagingSenderId: String(import.meta.env.VITE_messagingSenderId),
   appId: String(import.meta.env.VITE_appId),
+  publishKeyStripe: String(import.meta.env.VITE_publishKey),
 };

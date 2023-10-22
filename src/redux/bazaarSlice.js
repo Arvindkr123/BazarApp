@@ -45,6 +45,15 @@ const bazaarSlice = createSlice({
         item.quantity--;
       }
     },
+
+    // =========================== User Data added/removed start =========================
+    addUser: (state, action) => {
+      state.userInfo = action.payload;
+    },
+    removeUser: (state, action) => {
+      state.userInfo = null;
+    },
+    // =========================== User Data added/removed end =========================
   },
 });
 
@@ -54,5 +63,7 @@ export const {
   decrementQuantity,
   incrementQuantity,
   resetCart,
+  addUser,
+  removeUser,
 } = bazaarSlice.actions;
 export default bazaarSlice.reducer;

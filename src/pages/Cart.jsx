@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItems from "../components/CartItems";
 import { one1 } from "../assets";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import StripeCheckout from "react-stripe-checkout";
+import { config } from "../Conf/config";
+import { resetCart } from "../redux/bazaarSlice";
 
 const Cart = () => {
-  const productData = useSelector((state) => state.bazaar.productData);
+  const { productData, userInfo } = useSelector((state) => state.bazaar);
   const [totalAmount, setTotalAmount] = useState("");
+  const [payNow, setPayNow] = useState(false);
+  const dispatch = useDispatch();
   //console.log(productData);
 
   useEffect(() => {
@@ -18,6 +24,14 @@ const Cart = () => {
     //console.log("price from cart ", price);
     setTotalAmount(price.toFixed(2));
   }, [productData]);
+
+  const handleCheckout = () => {
+    if (userInfo) {
+      setPayNow(true);
+    } else {
+      toast.error("Please sign in first to check out!!");
+    }
+  };
   return (
     <div>
       <img src={one1} className="w-full h-60 object-cover" alt="" />
@@ -56,11 +70,24 @@ const Cart = () => {
                 Total <span className="text-xl font-bold">$ {totalAmount}</span>
               </p>
               <button
+                onClick={handleCheckout}
                 className="text-base bg-black text-white w-full py-3
           mt-6 hover:bg-gray-800 duration-300 lowercase"
               >
                 Proceed to Checkout
               </button>
+              {payNow && (
+                <div className="w-full mt-6 flex items-center justify-center">
+                  <StripeCheckout
+                    stripeKey={config.publishKeyStripe}
+                    name={"Bazaar Online Shopping"}
+                    amount={totalAmount * 100}
+                    label="Pay to Bazaar"
+                    email={userInfo.email}
+                    description={`Your payment amount is ${totalAmount}`}
+                  />
+                </div>
+              )}
             </div>
           </>
         )}
